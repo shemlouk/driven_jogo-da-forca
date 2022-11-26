@@ -10,8 +10,17 @@ import forca6 from "../assets/forca6.png";
 const images = [forca0, forca1, forca2, forca3, forca4, forca5, forca6];
 
 export default function Jogo(props) {
-  function formatarPalavra() {
-    console.log(props.letrasChutadas, props.palavra);
+  function iniciaJogo() {
+    const index = Math.round(Math.random() * props.palavras.length);
+    props.setPalavra(props.palavras[index]);
+    props.setToggle(false);
+    props.setContador(0);
+    props.setLetrasChutadas([]);
+    props.setStatus("");
+  }
+
+  function formataPalavra() {
+    if (props.status) return props.palavra;
     const letras = props.palavra.split("");
     const formatado = letras.map((l) =>
       props.letrasChutadas.includes(l) ? l : " _ "
@@ -19,11 +28,17 @@ export default function Jogo(props) {
     return formatado.join("");
   }
 
+  function selecionaCor() {
+    if (!props.status) return "black";
+    if (props.status === "venceu") return "var(--verde)";
+    return "var(--vermelho)";
+  }
+
   return (
     <Container>
       <img src={images[props.contador]} />
-      <button onClick={() => props.iniciaJogo()}>Escolher Palavra</button>
-      <Palavra>{formatarPalavra()}</Palavra>
+      <button onClick={iniciaJogo}>Escolher Palavra</button>
+      <Palavra cor={selecionaCor()}>{formataPalavra()}</Palavra>
     </Container>
   );
 }
@@ -62,4 +77,5 @@ const Palavra = styled.p`
   font-family: "Noto Sans", "Roboto", sans-serif !important;
   font-size: 50px;
   font-weight: 700;
+  color: ${(props) => props.cor};
 `;

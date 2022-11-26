@@ -10,42 +10,43 @@ export default function App() {
   const [toggle, setToggle] = useState(true);
   const [contador, setContador] = useState(0);
   const [letrasChutadas, setLetrasChutadas] = useState([]);
+  const [status, setStatus] = useState("");
 
-  function iniciaJogo() {
-    setPalavra(selecionaPalavra(palavras));
-    setToggle(false);
-    setContador(0);
-    setLetrasChutadas([]);
+  console.log(letrasChutadas, palavra);
+
+  const props = {
+    finalizaJogo: finalizaJogo,
+    palavras: palavras,
+    toggle: toggle,
+    setToggle: setToggle,
+    palavra: palavra,
+    setPalavra: setPalavra,
+    contador: contador,
+    setContador: setContador,
+    letrasChutadas: letrasChutadas,
+    setLetrasChutadas: setLetrasChutadas,
+    status: status,
+    setStatus: setStatus,
+  };
+
+  function finalizaJogo(resultado) {
+    setToggle(true);
+    setStatus(resultado);
+    if (resultado === "perdeu") setContador(6);
   }
+
+  const venceu = palavra.split("").every((l) => letrasChutadas.includes(l));
+  if (venceu && !status) finalizaJogo("venceu");
 
   return (
     <>
-      <Jogo
-        iniciaJogo={iniciaJogo}
-        palavra={palavra}
-        letrasChutadas={letrasChutadas}
-        contador={contador}
-      ></Jogo>
+      <Jogo {...props}></Jogo>
       <Container>
-        <Letras
-          {...{
-            toggle: toggle,
-            palavra: palavra,
-            letrasChutadas: letrasChutadas,
-            setLetrasChutadas: setLetrasChutadas,
-            contador: contador,
-            setContador: setContador,
-          }}
-        ></Letras>
-        <Chute toggle={toggle}></Chute>
+        <Letras {...props}></Letras>
+        <Chute {...props}></Chute>
       </Container>
     </>
   );
-}
-
-function selecionaPalavra(arr) {
-  const index = Math.round(Math.random() * arr.length);
-  return arr[index];
 }
 
 const Container = styled.div`

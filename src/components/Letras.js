@@ -14,15 +14,15 @@ export default function Letras(props) {
 }
 
 function Button(props) {
-  const [clicado, setClicado] = useState(false);
+  const clicado = props.letrasChutadas.includes(props.value.toLowerCase());
 
   function validaChute(event) {
     const letra = event.target.innerHTML.toLowerCase();
     props.setLetrasChutadas([...props.letrasChutadas, letra]);
-    setClicado(true);
-    if (!props.palavra.includes(letra)) {
-      props.setContador(props.contador + 1);
-    }
+    if (props.palavra.includes(letra)) return;
+    const novaContagem = props.contador + 1;
+    props.setContador(novaContagem);
+    if (novaContagem === 6) props.finalizaJogo("perdeu");
   }
 
   return (
