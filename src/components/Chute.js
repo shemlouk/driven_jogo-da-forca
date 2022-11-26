@@ -1,13 +1,30 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function Chute(props) {
+  const [texto, setTexto] = useState("");
+
+  function validaChute() {
+    setTexto("");
+    if (texto === props.palavra) {
+      props.finalizaJogo("venceu");
+    } else {
+      props.finalizaJogo("perdeu");
+    }
+  }
+
   return (
     <Container>
       <label>
         Já sei a palavra!
-        <input type="text" disabled={props.toggle}></input>
         <input
-          onClick={alert}
+          onChange={(e) => setTexto(e.target.value)}
+          type="text"
+          disabled={props.toggle}
+          value={texto}
+        ></input>
+        <input
+          onClick={validaChute}
           type="button"
           value="Chutar"
           disabled={props.toggle}
