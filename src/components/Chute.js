@@ -6,7 +6,9 @@ export default function Chute(props) {
 
   function validaChute() {
     setTexto("");
-    if (texto === props.palavra) {
+    if (
+      props.normalizaPalavra(texto) === props.normalizaPalavra(props.palavra)
+    ) {
       props.finalizaJogo("venceu");
     } else {
       props.finalizaJogo("perdeu");

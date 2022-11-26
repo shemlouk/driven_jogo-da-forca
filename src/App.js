@@ -15,6 +15,7 @@ export default function App() {
   console.log(letrasChutadas, palavra);
 
   const props = {
+    normalizaPalavra: normalizaPalavra,
     finalizaJogo: finalizaJogo,
     palavras: palavras,
     toggle: toggle,
@@ -35,7 +36,14 @@ export default function App() {
     if (resultado === "perdeu") setContador(6);
   }
 
-  const venceu = palavra.split("").every((l) => letrasChutadas.includes(l));
+  function normalizaPalavra(string) {
+    return string.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
+  const palavraFormatada = normalizaPalavra(palavra);
+  const venceu = palavraFormatada
+    .split("")
+    .every((l) => letrasChutadas.includes(l));
   if (venceu && !status) finalizaJogo("venceu");
 
   return (

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -19,7 +18,8 @@ function Button(props) {
   function validaChute(event) {
     const letra = event.target.innerHTML.toLowerCase();
     props.setLetrasChutadas([...props.letrasChutadas, letra]);
-    if (props.palavra.includes(letra)) return;
+    const palavra = props.normalizaPalavra(props.palavra);
+    if (palavra.includes(letra)) return;
     const novaContagem = props.contador + 1;
     props.setContador(novaContagem);
     if (novaContagem === 6) props.finalizaJogo("perdeu");

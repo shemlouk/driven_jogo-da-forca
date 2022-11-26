@@ -22,9 +22,10 @@ export default function Jogo(props) {
   function formataPalavra() {
     if (props.status) return props.palavra;
     const letras = props.palavra.split("");
-    const formatado = letras.map((l) =>
-      props.letrasChutadas.includes(l) ? l : " _ "
-    );
+    const formatado = letras.map((l) => {
+      const letra = props.normalizaPalavra(l);
+      return props.letrasChutadas.includes(letra) ? l : " _ ";
+    });
     return formatado.join("");
   }
 
