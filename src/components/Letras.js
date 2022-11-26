@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -6,16 +7,32 @@ export default function Letras(props) {
   return (
     <Container>
       {alfabeto.map((a) => (
-        <Botao
-          key={a}
-          cor={props.toggle === false ? "azul" : "cinza"}
-          disabled={props.toggle}
-          onClick={alert}
-        >
-          {a}
-        </Botao>
+        <Button key={a} value={a} {...props} />
       ))}
     </Container>
+  );
+}
+
+function Button(props) {
+  const [clicado, setClicado] = useState(false);
+
+  function validaChute(event) {
+    const letra = event.target.innerHTML.toLowerCase();
+    props.setLetrasChutadas([...props.letrasChutadas, letra]);
+    setClicado(true);
+    if (!props.palavra.includes(letra)) {
+      props.setContador(props.contador + 1);
+    }
+  }
+
+  return (
+    <StyledButton
+      cor={(props.toggle || clicado) === false ? "azul" : "cinza"}
+      disabled={props.toggle || clicado}
+      onClick={(e) => validaChute(e)}
+    >
+      {props.value}
+    </StyledButton>
   );
 }
 
@@ -28,7 +45,7 @@ const Container = styled.div`
   margin-bottom: 56px;
 `;
 
-const Botao = styled.button`
+const StyledButton = styled.button`
   border-radius: 3px;
   font-size: 16px;
   font-weight: 700;

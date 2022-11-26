@@ -10,19 +10,22 @@ import forca6 from "../assets/forca6.png";
 const images = [forca0, forca1, forca2, forca3, forca4, forca5, forca6];
 
 export default function Jogo(props) {
+  function formatarPalavra() {
+    console.log(props.letrasChutadas, props.palavra);
+    const letras = props.palavra.split("");
+    const formatado = letras.map((l) =>
+      props.letrasChutadas.includes(l) ? l : " _ "
+    );
+    return formatado.join("");
+  }
+
   return (
     <Container>
       <img src={images[props.contador]} />
       <button onClick={() => props.iniciaJogo()}>Escolher Palavra</button>
-      <Palavra>{formatarPalavra(props.palavra, props.letrasChutadas)}</Palavra>
+      <Palavra>{formatarPalavra()}</Palavra>
     </Container>
   );
-}
-
-function formatarPalavra(str, lst) {
-  const letras = str.split("");
-  const formatado = letras.map((l) => (lst.includes(l) ? l : " _ "));
-  return formatado.join("");
 }
 
 const Container = styled.div`

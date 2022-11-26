@@ -10,7 +10,6 @@ export default function App() {
   const [toggle, setToggle] = useState(true);
   const [contador, setContador] = useState(0);
   const [letrasChutadas, setLetrasChutadas] = useState([]);
-  console.log(`NOVO JOGO INICIADO\nPalavra sorteada: ${palavra}`);
 
   function iniciaJogo() {
     setPalavra(selecionaPalavra(palavras));
@@ -28,7 +27,16 @@ export default function App() {
         contador={contador}
       ></Jogo>
       <Container>
-        <Letras toggle={toggle} setLetrasChutadas={setLetrasChutadas}></Letras>
+        <Letras
+          {...{
+            toggle: toggle,
+            palavra: palavra,
+            letrasChutadas: letrasChutadas,
+            setLetrasChutadas: setLetrasChutadas,
+            contador: contador,
+            setContador: setContador,
+          }}
+        ></Letras>
         <Chute toggle={toggle}></Chute>
       </Container>
     </>
