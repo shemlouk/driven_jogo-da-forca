@@ -27,6 +27,7 @@ function Button(props) {
 
   return (
     <StyledButton
+      data-test="letter"
       cor={(props.toggle || clicado) === false ? "azul" : "cinza"}
       disabled={props.toggle || clicado}
       onClick={(e) => validaChute(e)}

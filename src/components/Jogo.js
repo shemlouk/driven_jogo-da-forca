@@ -24,7 +24,7 @@ export default function Jogo(props) {
     const letras = props.palavra.split("");
     const formatado = letras.map((l) => {
       const letra = props.normalizaPalavra(l);
-      return props.letrasChutadas.includes(letra) ? l : " _ ";
+      return props.letrasChutadas.includes(letra) ? l : " _";
     });
     return formatado.join("");
   }
@@ -37,9 +37,17 @@ export default function Jogo(props) {
 
   return (
     <Container>
-      <img src={images[props.contador]} />
-      <button onClick={iniciaJogo}>Escolher Palavra</button>
-      <Palavra cor={selecionaCor()}>{formataPalavra()}</Palavra>
+      <img data-test="game-image" src={images[props.contador]} />
+      <button data-test="choose-word" onClick={iniciaJogo}>
+        Escolher Palavra
+      </button>
+      <Palavra
+        data-test="word"
+        data-answer={props.palavra}
+        cor={selecionaCor()}
+      >
+        {formataPalavra()}
+      </Palavra>
     </Container>
   );
 }
