@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styled from "styled-components";
 import Chute from "./components/Chute";
 import Jogo from "./components/Jogo";
 import Letras from "./components/Letras";
@@ -26,10 +27,10 @@ export default function App() {
         letrasChutadas={letrasChutadas}
         contador={contador}
       ></Jogo>
-      <div className="container">
+      <Container>
         <Letras toggle={toggle} setLetrasChutadas={setLetrasChutadas}></Letras>
         <Chute toggle={toggle}></Chute>
-      </div>
+      </Container>
     </>
   );
 }
@@ -38,3 +39,10 @@ function selecionaPalavra(arr) {
   const index = Math.round(Math.random() * arr.length);
   return arr[index];
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
