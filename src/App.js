@@ -12,22 +12,20 @@ export default function App() {
   const [letrasChutadas, setLetrasChutadas] = useState([]);
   const [status, setStatus] = useState("");
 
-  console.log(letrasChutadas, palavra);
-
   const props = {
-    normalizaPalavra: normalizaPalavra,
-    finalizaJogo: finalizaJogo,
-    palavras: palavras,
-    toggle: toggle,
-    setToggle: setToggle,
-    palavra: palavra,
-    setPalavra: setPalavra,
-    contador: contador,
-    setContador: setContador,
-    letrasChutadas: letrasChutadas,
-    setLetrasChutadas: setLetrasChutadas,
-    status: status,
-    setStatus: setStatus,
+    normalizaPalavra,
+    finalizaJogo,
+    palavras,
+    toggle,
+    setToggle,
+    palavra,
+    setPalavra,
+    contador,
+    setContador,
+    letrasChutadas,
+    setLetrasChutadas,
+    status,
+    setStatus,
   };
 
   function finalizaJogo(resultado) {
@@ -40,11 +38,15 @@ export default function App() {
     return string.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 
-  const palavraFormatada = normalizaPalavra(palavra);
-  const venceu = palavraFormatada
-    .split("")
-    .every((l) => letrasChutadas.includes(l));
-  if (venceu && !status) finalizaJogo("venceu");
+  function verificaSeAcertou() {
+    const palavraFormatada = normalizaPalavra(palavra);
+    const acertou = palavraFormatada
+      .split("")
+      .every((l) => letrasChutadas.includes(l));
+    return acertou;
+  }
+
+  if (verificaSeAcertou() && !status) finalizaJogo("venceu");
 
   return (
     <>
