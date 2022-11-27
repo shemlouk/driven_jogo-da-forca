@@ -57,4 +57,8 @@ const StyledButton = styled.button`
   background-color: var(--background-${(props) => props.cor});
   color: var(--fonte-${(props) => props.cor});
   border: 1px solid var(--borda-${(props) => props.cor});
+  transition: 0.3s;
+  :hover {
+    transform: scale(1.1);
+  }
 `;

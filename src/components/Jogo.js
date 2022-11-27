@@ -77,6 +77,13 @@ const Container = styled.div`
     right: 0px;
     top: 30px;
     cursor: pointer;
+    transition: 0.3s;
+    :active {
+      transform: scale(0.9);
+    }
+    :hover {
+      background-color: #289154;
+    }
   }
 `;
 
